@@ -1,0 +1,109 @@
+<script type="text/javascript">
+    
+    $(function(){       
+        render();
+    });
+
+    function search(x=""){
+        if(x){
+            var val = "";
+        }else{
+            var val = $("[name='search']").val();
+        }
+        resetLegacyList();
+        render(0,val);
+    }
+
+    function render(pag="",search=""){
+        //MEMORIA PAGINAZIONE E RICERCA
+        if(pag==="") pag = legacyList()[0];
+        if(search==="") search = legacyList()[1];
+        legacyList(pag,search);
+
+        pag = pag!=""?pag:0;
+        var start_limit = setting("pagination_limit")*pag;
+
+        $("[name='search']").val(search);
+        $("[name='search']").keyup(function(e) {
+            var code = e.keyCode || e.which;
+            if(code==13) $("#search_bar button").trigger("click");
+        });
+
+        var varquery = "select * from log where eliminato = 0";
+        if(search.length){
+            varquery += " and (action like '%"+escapeHtml(search)+"%')";
+        }
+        query_tot = varquery;
+        varquery += " ORDER BY data_creazione desc limit "+start_limit+","+setting("pagination_limit");
+
+        //db.all(query, function(err, rows) {
+        var rows = query(varquery,"multi"); 
+        var tot_rows = query(query_tot,"multi").length;
+
+        var str = '<div class="small text-center"><i class="fas fa-info-circle text-secondary mr-1"></i>Sono stati trovati <strong>'+tot_rows+' elementi</strong>';
+        if(search.length){
+            str += ' per il termine: <strong>'+search+'</strong>';
+            str += '<div><span style="cursor:pointer" onclick="search(1)" class="badge badge-danger">Mostra elenco completo</span></div>';
+        }
+        str += "</div>";
+
+        if(rows.length){
+            str += '<table class="table table-sm table-striped m-0">';
+
+            str += '<thead><tr>';           
+            str += '<th>Action</th>';
+            str += '</tr></thead>';
+
+            str += '<tbody>';
+            rows.forEach(function (row) {
+
+                str += '<tr>';
+                str += '<td><div class="small text-secondary">'+italyDate(row.data_creazione,1)+'</div>';
+                str += '<strong>'+get_nome_password(row.id_password)+'</strong> - '+escapeHtml(row.action,1)+'</div></td>';
+                str += '</tr>';
+
+            });
+            str += '</tbody>';
+            str += '</table>';
+        }
+
+        if(tot_rows>setting("pagination_limit")){
+            var left=(start_limit != 0)?true:false;
+            var right=(tot_rows>parseInt(start_limit)+parseInt(setting("pagination_limit")))?true:false;
+            var tot_pag = Math.ceil(tot_rows/setting("pagination_limit"));
+
+            str += '<div class="text-center mb-4 pt-2 border border-left-0 border-bottom-0 border-right-0"><div class="btn-group">';
+            str += '<button id="lbtn" type="button" class="btn btn-'+(!left?'secondary disabled':'info')+'"><i class="fas fa-arrow-left"></i></button>';
+            str += '<button class="btn btn-light disabled">'+(parseInt(pag)+1)+' di '+tot_pag+'</button>';
+            str += '<button id="rbtn" type="button" class="btn btn-'+(!right?'secondary disabled':'info')+'"><i class="fas fa-arrow-right"></i></button>';
+            str += '</div></div>';
+
+        }
+
+        $("#elenco").html(str);
+
+        $("#lbtn").click(function(){
+            var left_page = parseInt(pag)-1;
+            if(left) render(left_page,search);
+        });
+
+        $("#rbtn").click(function(){
+            var right_page = parseInt(pag)+1;
+            if(right) render(right_page,search);
+        });
+
+    }
+
+</script>
+
+<div class="p-2">
+    <div class="border border-top-0 border-left-0 border-right-0">
+        <div id="search_bar" class="input-group ml-auto mb-2">
+            <input type="search" class="form-control" name="search" placeholder="Ricerca">
+            <div class="input-group-append">
+                <button type="button" onclick="search()" class="btn btn-info"><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+    </div>
+    <div id="elenco"></div>
+</div>

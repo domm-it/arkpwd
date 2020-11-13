@@ -1,0 +1,35 @@
+{
+  "name": "ArkPwd",
+  "version": "2.0.0",
+  "description": "Gestore di password",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": "https://github.com/domm-it/arkpwd",
+  "keywords": [
+    "Password",
+    "Electron",
+    "jQuery",
+    "jQuery-ui",
+    "bootstrap",
+    "SQLite",
+    "Better-sqlite3"
+  ],
+  "author": "GitHub",
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "electron": "^10.1.4"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.1",
+    "better-sqlite3": "^7.1.1",
+    "bootstrap": "^4.5.3",
+    "bootstrap-select": "^1.13.18",
+    "electron-rebuild": "^2.3.2",
+    "jquery": "^3.5.1",
+    "jquery-ui-dist": "^1.12.1",
+    "jquery.session": "^1.0.0",
+    "zxcvbn": "^4.4.2"
+  }
+}

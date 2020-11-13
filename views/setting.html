@@ -1,0 +1,86 @@
+<script type="text/javascript">
+    $(function(){
+        load_setting();
+        if(!config['BTN_DB']) $("#btn_db").remove();
+    });
+
+    function aggiornamento_database(){
+        if(!confirm("Aggiornare il database?")) return;
+        check_db();
+    }
+
+    function salva_impostazioni(){
+        var scheda_attuale = $(".nav-item.active").attr("id").replace("-tab","");
+        save_setting(scheda_attuale);
+    }
+</script>
+
+<form id="form_setting">
+    <div class="p-2">
+        <nav>
+          <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="generali-tab" data-toggle="tab" href="#generali" role="tab">Generali</a>
+            <div class="ml-auto">
+                <button id="btn_db" onclick="aggiornamento_database()" type="button" class="btn btn-warning btn-sm"><i class="fas fa-sync-alt"></i> DB</button>
+                <button onclick="salva_impostazioni()" type="button" class="btn btn-success btn-sm"><i class="fas fa-save"></i> Salva</button>
+            </div>
+          </div>
+        </nav>
+
+        <div class="tab-content">
+          
+          <div class="tab-pane show active p-2" id="generali" role="tabpanel" style="min-height: 500px">
+            
+            <div class="input-group mb-2">
+              <div class="input-group-prepend">
+                <span class="input-group-text" style="width:150px">Righe per pagina</span>
+              </div>
+              <input type="text" class="form-control" name="pagination_limit">
+            </div>
+
+            <div class="input-group mb-2">
+              <div class="input-group-prepend">
+                <span class="input-group-text" style="width:150px">Password warning</span>
+              </div>
+              <input type="text" class="form-control" name="password_warning">
+              <div class="input-group-append">
+                <span class="input-group-text">giorni</span>
+              </div>
+            </div>
+
+            <div class="custom-control custom-switch custom-switch-sm">
+              <input type="hidden" name="shortcut" value="0">
+              <input type="checkbox" class="custom-control-input" id="shortcut" name="shortcut" value="1">
+              <label class="custom-control-label" for="shortcut">Abilita tasti di scelta rapida</label>
+            </div>
+
+            <hr>
+
+            <h5>Password default</h5>
+            <div class="input-group mb-2">
+              <div class="input-group-prepend">
+                <span class="input-group-text" style="width:150px">Caratteri totali</span>
+              </div>
+              <input type="text" class="form-control" name="pwd_tot_caratteri">
+            </div>
+
+            <div class="input-group mb-2">
+              <div class="input-group-prepend">
+                <span class="input-group-text" style="width:150px">Caratteri totali</span>
+              </div>
+              <input type="text" class="form-control" name="pwd_tot_numeri">
+            </div>
+
+            <div class="input-group mb-2">
+              <div class="input-group-prepend">
+                <span class="input-group-text" style="width:150px">Caratteri totali</span>
+              </div>
+              <input type="text" class="form-control" name="pwd_tot_speciali">
+            </div>
+
+          </div>
+
+        </div>
+
+    </div>
+</form>

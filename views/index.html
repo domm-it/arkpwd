@@ -1,0 +1,33 @@
+<script type="text/javascript">
+    $(function(){
+        elenco_password();
+        $("[name='riga_pwd']").focus();
+
+        var tot_pwd = query("select count(id_password) as num from password where eliminato = 0","single");
+        tot_pwd = tot_pwd?tot_pwd.num:0;
+        $("#tot_pwd").html(tot_pwd);
+
+        var last_save = query("select max(max(data_creazione),max(data_modifica)) as data from password where eliminato = 0","single");
+        last_save = last_save?italyDate(last_save.data,1)+" ("+date_diff(now(),last_save.data)+" giorni fa)":"xx/xx/xxxx - xx:xx (x giorni fa)";
+        $("#last_save").html(last_save);
+
+    });
+</script>
+
+<div>
+
+    <div class="text-center border border-left-0 border-top-0 border-right-0 small">Last save: <span id="last_save" class="font-weight-bold"></span> - Tot pwd: <span id="tot_pwd" class="font-weight-bold">0</span></div>
+
+    <div class="p-2">
+
+        <button type="button" class="btn btn-success btn-lg w-100 d-block mt-1 mb-2" onclick="edit_password()">Crea password</button> 
+        <button type="button" class="btn btn-success btn-lg w-100 d-block mt-1 mb-2" onclick="page('elenco_password','Elenco password')">Elenco password</button> 
+        <hr>
+        <button type="button" class="btn btn-info btn-lg w-100 d-block mt-1 mb-2" onclick="page('log','Log')">Elenco dei log</button> 
+        <button type="button" class="btn btn-info btn-lg w-100 d-block mt-1 mb-2" onclick="page('edit_password_master','Modifica password master')">Modifica password master</button> 
+        <button type="button" class="btn btn-info btn-lg w-100 d-block mt-1 mb-2" onclick="page('setting','Impostazioni')">Impostazioni</button> 
+        <hr>
+        <button type="button" class="btn btn-danger btn-lg w-100 d-block mt-1 mb-2" onclick="logout()">Disconnetti</button> 
+    </div>
+
+</div>

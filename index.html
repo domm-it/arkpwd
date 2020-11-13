@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>_master</title>
+
+      <!-- STILI DELL'APP -->
+      <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+      <link rel="stylesheet" type="text/css" href="node_modules/bootstrap-select/dist/css/bootstrap-select.min.css">
+      <link rel="stylesheet" type="text/css" href="node_modules/jquery-ui-dist/jquery-ui.min.css">
+      <link rel="stylesheet" type="text/css" href="node_modules/@fortawesome/fontawesome-free/css/all.css">
+      <link rel="stylesheet" type="text/css" href="assets/css/_base.css">
+      <link rel="stylesheet" type="text/css" href="assets/css/main.css">
+
+      <!-- CARICAMENTO FUNZIONI APP -->
+      <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+      <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
+      <script type="text/javascript" src="node_modules/jquery.session/jquery.session.js"></script>
+      <script type="text/javascript" src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+      <script type="text/javascript" src="node_modules/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+      <script type="text/javascript" src="node_modules/jquery-ui-dist/jquery-ui.min.js"></script>
+      <script type="text/javascript" src="core/config.js"></script>
+      <script type="text/javascript" src="assets/js/_base.js"></script>
+      <script type="text/javascript" src="assets/js/_db.js"></script>
+      <script type="text/javascript" src="assets/js/_setting.js"></script>
+      <script type="text/javascript" src="assets/js/main.js"></script>
+      <script>if (window.module) module = window.module;</script>
+      
+  </head>
+  <body>
+    
+    <header>
+      <nav class="navbar navbar-light bg-light border border-top-0 border-left-0 border-right-0 p-2">
+        <table style="width: 100%">
+          <tr>
+            <td style="width: 30px"><button type="button" tabindex="-1" class="btn btn-dark" onclick="page()"><i class="fas fa-home"></i></button></td>
+            <td style="padding: 0 8px"><input tabindex="0" type="text" name="riga_pwd" class="form-control"></td>
+            <td style="width: 30px"><button type="button" tabindex="-1" class="btn btn-dark" onclick="menu()"><i class="fas fa-bars"></i></button></td>
+          </tr>   
+        </table>     
+      </nav>
+      <div id="menu">
+        <nav class="navbar navbar-secondary bg-secondary p-2 pl-3">
+          <span class="text-light" style="font-size: 20px">Menù</span>
+          <button type="button" class="btn btn-dark" onclick="menu()"><i class="fas fa-times"></i></button>
+        </nav>
+        <div class="list-group" id="menu_content"></div>
+      </div>
+      <div id="menu_background"></div>
+    </header>
+
+    <main></main> 
+
+    <footer>
+      <div class="float-left mr-2" style="cursor: pointer;" onclick="reload()"><i class="fas fa-sync-alt text-secondary"></i></div>
+      <div class="float-left" id="icon_info"></div>
+      <div class="float-right">Created by <a href="javascript:void(0)" onclick="dev_info()"><img src="./assets/IMG/logo_arkas.png" style="height:20px"></a></div>
+    </footer>
+
+    <!-- You can also require other files to run in this process -->
+    <script src="./renderer.js"></script>
+  </body>
+</html>
